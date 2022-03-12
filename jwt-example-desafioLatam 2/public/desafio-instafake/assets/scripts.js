@@ -84,8 +84,11 @@ const logout = () => {
     location.reload();
   });
 };
+
+//funcion para cargar mas fotos
 let page = 2;
 const morePage = () => {
+  //escucha click en boton nex page hace llamado a nueva pag
   document.getElementById("nextPage").addEventListener("click", async () => {
     const token = localStorage.getItem("jwt-token");
     if (page <= 10) {
@@ -100,6 +103,7 @@ const morePage = () => {
           }
         );
         const { data } = await response.json();
+        //carga los nuevos elementos
         if (data) {
           data.map((photos) => {
             document.getElementById(
@@ -116,6 +120,7 @@ const morePage = () => {
         localStorage.clear();
         console.error(`Error: ${err}`);
       }
+      //suma un numero para asignar a la nueva consulta
       page++;
       if (page == 11) {
         document.getElementById("js-card-wrapper").innerHTML =
