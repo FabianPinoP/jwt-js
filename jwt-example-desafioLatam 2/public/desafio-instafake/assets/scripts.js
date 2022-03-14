@@ -62,7 +62,7 @@ const getPhotos = async (jwt) => {
 const addPhoto = (data) => {
   data.map((photos) => {
     document.getElementById(
-      "js-card-wrapper"
+      "js-card-view"
     ).innerHTML += `<div class="card mb-3">
     <img src="${photos.download_url}" class="card-img-top" alt="">
     <div class="card-body">
