@@ -55,11 +55,11 @@ import Country from "./consultCountry.js";
   data.forEach((element) => {
     table.innerHTML += `<tr>
       <td>${element.location}</td>
-      <td>${element.active}</td>  
+      <td>${element.active}</td>
       <td>${element.confirmed}</td>
       <td>${element.recovered}</td>
       <td>${element.deaths}</td>
-      <td><button type="button"  data-country=${element.location} class="btn btn-success">${element.location}</button></td>      
+      <td><button type="button" data-country=${element.location} class="btn btn-success">${element.location}</button></td>
       </tr>`;
   });
 
@@ -71,8 +71,14 @@ import Country from "./consultCountry.js";
     $("#exampleModal").modal("show");
     let setCountry = e.target.dataset.country;
     const { data } = await Country.getCountry(setCountry);
-    const ctx2 = document.getElementById("myChart2").getContext("2d");
-    const myChart2 = new Chart(ctx2, {
+
+    document.getElementById("myChart2").remove();
+    var canvas = document.createElement("canvas");
+    canvas.id = "myChart2";
+    document.getElementById("bodyModal").appendChild(canvas);
+    const ctx2 = document.getElementById("myChart2");
+
+    const graphicModal = new Chart(ctx2, {
       type: "bar",
       data: {
         labels: ["Confirmados", "Muertes", "Recuperados", "Activos"],
@@ -102,6 +108,7 @@ import Country from "./consultCountry.js";
       },
     });
   };
+
   const button = document.querySelectorAll(".btn-success");
   button.forEach((boton) => {
     boton.addEventListener("click", ChartData);
