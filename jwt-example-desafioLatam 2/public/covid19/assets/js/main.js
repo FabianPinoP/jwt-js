@@ -3,15 +3,28 @@ import Country from "./consultCountry.js";
 
 (async () => {
   const { data } = await Consult.getData();
-  const filterData = data.filter((a) => a.confirmed >= 10000000);
+  const filterData = data.filter((a) => a.confirmed >= 100);
   const confirmed = [];
   const location = [];
+  const deaths = [];
+  const arrayData = [];
+  const color = ["rgb(66, 134, 244)", "rgb(74, 135, 72)"];
   filterData.forEach((element) => {
     confirmed.push(element.confirmed);
     location.push(element.location);
+    deaths.push(element.deaths);
+    arrayData.push(element);
   });
 
+  for (let i = 0; i < arrayData.length; i += 10)
+    (() => {
+      const newArray = arrayData.slice(i, i + 10);
+      
+    })();
+  
+
   let ctx = document.getElementById("myChart").getContext("2d");
+
   const myChart = new Chart(ctx, {
     type: "bar",
     data: {
@@ -20,18 +33,13 @@ import Country from "./consultCountry.js";
         {
           label: "Casos confirmados",
           data: confirmed,
-          backgroundColor: [
-            "rgb(66, 134, 244)",
-            "rgb(74, 135, 72)",
-            "rgb(229, 89, 50)",
-            "rgb(125, 44, 35)",
-            "rgb(90, 35, 125)",
-            "rgb(18, 204, 182)",
-            "rgb(214, 211, 17)",
-            "rgb(138, 11, 212)",
-            "rgb(50, 66, 168)",
-            "rgb(50, 168, 82)",
-          ],
+
+          backgroundColor: color[0],
+        },
+        {
+          label: "Muertes",
+          data: deaths,
+          backgroundColor: color[1],
         },
       ],
     },
@@ -39,8 +47,9 @@ import Country from "./consultCountry.js";
       scales: {
         yAxes: [
           {
-            ticks: {
-              beginAtZero: true,
+            barPercentage: 0.5,
+            gridLines: {
+              display: false,
             },
           },
         ],
