@@ -1,44 +1,43 @@
 import Consult from "./consult.js";
 import Country from "./consultCountry.js";
-
+let contador = 0;
+const arrayData = [];
+const dividedArray = [];
+const color = ["rgb(66, 134, 244)", "rgb(255, 0, 0)"];
+let grafico = document.getElementById("next-page");
+let grafico2 = document.getElementById("previous-page");
 (async () => {
   const { data } = await Consult.getData();
   const filterData = data.filter((a) => a.confirmed >= 100);
-  const confirmed = [];
-  const location = [];
-  const deaths = [];
-  const arrayData = [];
-  const color = ["rgb(66, 134, 244)", "rgb(74, 135, 72)"];
+
   filterData.forEach((element) => {
-    confirmed.push(element.confirmed);
-    location.push(element.location);
-    deaths.push(element.deaths);
     arrayData.push(element);
   });
-
   for (let i = 0; i < arrayData.length; i += 10)
     (() => {
       const newArray = arrayData.slice(i, i + 10);
-      
+      dividedArray.push(newArray);
     })();
-  
+})();
+
+(async () => {
+  let { data } = await Consult.getData();
 
   let ctx = document.getElementById("myChart").getContext("2d");
-
   const myChart = new Chart(ctx, {
     type: "bar",
     data: {
-      labels: location,
+      labels: dividedArray[contador].map((a) => a.location),
       datasets: [
         {
           label: "Casos confirmados",
-          data: confirmed,
+          data: dividedArray[contador].map((a) => a.confirmed),
 
           backgroundColor: color[0],
         },
         {
           label: "Muertes",
-          data: deaths,
+          data: dividedArray[contador].map((a) => a.deaths),
           backgroundColor: color[1],
         },
       ],
@@ -47,16 +46,35 @@ import Country from "./consultCountry.js";
       scales: {
         yAxes: [
           {
-            barPercentage: 0.5,
-            gridLines: {
-              display: false,
-            },
+            beginAtZero: true,
           },
         ],
       },
     },
   });
+
+  grafico.addEventListener("click", (e) => {
+    contador <= dividedArray, contador++;
+
+    myChart.data.labels = dividedArray[contador].map((a) => a.location);
+    myChart.data.datasets[0].data = dividedArray[contador].map(
+      (a) => a.confirmed
+    );
+    myChart.data.datasets[1].data = dividedArray[contador].map((a) => a.deaths);
+    myChart.update();
+  });
+  grafico2.addEventListener("click", (e) => {
+    contador >= dividedArray, contador--;
+
+    myChart.data.labels = dividedArray[contador].map((a) => a.location);
+    myChart.data.datasets[0].data = dividedArray[contador].map(
+      (a) => a.confirmed
+    );
+    myChart.data.datasets[1].data = dividedArray[contador].map((a) => a.deaths);
+    myChart.update();
+  });
 })();
+
 (async () => {
   let { data } = await Consult.getData();
   let table = document.getElementById("tableBody");
