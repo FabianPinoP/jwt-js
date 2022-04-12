@@ -1,5 +1,8 @@
 import Consult from "./consult.js";
 import Country from "./consultCountry.js";
+import Graphic from "./graphic.js";
+
+
 let contador = 0;
 const arrayData = [];
 const dividedArray = [];
@@ -24,7 +27,8 @@ let grafico2 = document.getElementById("previous-page");
   let { data } = await Consult.getData();
 
   let ctx = document.getElementById("myChart").getContext("2d");
-  const myChart = new Chart(ctx, {
+  
+   const myChart = new Chart(ctx, {
     type: "bar",
     data: {
       labels: dividedArray[contador].map((a) => a.location),
@@ -51,7 +55,7 @@ let grafico2 = document.getElementById("previous-page");
         ],
       },
     },
-  });
+  }); 
 
   grafico.addEventListener("click", (e) => {
     contador <= dividedArray, contador++;
@@ -103,37 +107,14 @@ let grafico2 = document.getElementById("previous-page");
     var canvas = document.createElement("canvas");
     canvas.id = "myChart2";
     document.getElementById("bodyModal").appendChild(canvas);
-    const ctx2 = document.getElementById("myChart2");
+    const ctx2  = document.getElementById("myChart2");
 
-    const graphicModal = new Chart(ctx2, {
-      type: "bar",
-      data: {
-        labels: ["Confirmados", "Muertes", "Recuperados", "Activos"],
-        datasets: [
-          {
-            label: `${data.location}`,
-            data: [data.confirmed, data.deaths, data.recovered, data.active],
-            backgroundColor: [
-              "rgb(66, 134, 244)",
-              "rgb(74, 135, 72)",
-              "rgb(229, 89, 50)",
-              "rgb(125, 44, 35)",
-            ],
-          },
-        ],
-      },
-      options: {
-        scales: {
-          yAxes: [
-            {
-              ticks: {
-                beginAtZero: true,
-              },
-            },
-          ],
-        },
-      },
-    });
+    let labelData = data.location;
+    let label = ["Confirmados", "Muertes", "Recuperados", "Activos"];
+    let colors = ["rgb(66, 134, 244)","rgb(74, 135, 72)", "rgb(229, 89, 50)", "rgb(125, 44, 35)"];
+    let dataSet = [data.confirmed, data.deaths, data.recovered, data.active];
+
+    Graphic(ctx2, labelData, label, colors, dataSet);
   };
 
   const button = document.querySelectorAll(".btn-success");
