@@ -41,7 +41,9 @@
                 <a class="nav-link active" aria-current="page" href="#">Home</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Iniciar sesion</a>
+                <a id="login" class="nav-link" type="button" href="#"
+                  >Iniciar sesion</a
+                >
               </li>
             </ul>
           </div>
@@ -99,6 +101,45 @@
             <div class="modal-content">
               <div id="bodyModal" class="modal-body w-auto">
                 <canvas id="myChart2"></canvas>
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-bs-dismiss="modal"
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- modal login -->
+      <div
+          class="modal fade"
+          id="exampleModal2"
+          tabindex="-1"
+          aria-labelledby="exampleModalLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <div class="modal-body w-auto">
+                <h2 class="text-center">Inicio de sesion</h2>
+                <form id="form">
+                  <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="email" aria-describedby="emailHelp">
+                    
+                  </div>
+                  <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="password">
+                  </div>
+                  
+                  <button type="submit" class="btn btn-primary">Ingresar</button>
+                </form>
               </div>
               <div class="modal-footer">
                 <button
