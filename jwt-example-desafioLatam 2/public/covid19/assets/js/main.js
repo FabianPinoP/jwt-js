@@ -2,6 +2,7 @@ import Consult from "./consult.js";
 import Country from "./consultCountry.js";
 import Graphic from "./graphic.js";
 import Register from "./register.js";
+import logout from "./logout.js"
 
 let contador = 0;
 const arrayData = [];
@@ -10,7 +11,9 @@ const color = ["rgb(66, 134, 244)", "rgb(255, 0, 0)"];
 let grafico = document.getElementById("next-page");
 let grafico2 = document.getElementById("previous-page");
 (async () => {
-  const { data } = await Consult.getData();
+  const {
+    data
+  } = await Consult.getData();
   const filterData = data.filter((a) => a.confirmed >= 100);
 
   filterData.forEach((element) => {
@@ -24,7 +27,9 @@ let grafico2 = document.getElementById("previous-page");
 })();
 
 (async () => {
-  let { data } = await Consult.getData();
+  let {
+    data
+  } = await Consult.getData();
 
   let ctx = document.getElementById("myChart").getContext("2d");
 
@@ -32,8 +37,7 @@ let grafico2 = document.getElementById("previous-page");
     type: "bar",
     data: {
       labels: dividedArray[contador].map((a) => a.location),
-      datasets: [
-        {
+      datasets: [{
           label: "Casos confirmados",
           data: dividedArray[contador].map((a) => a.confirmed),
 
@@ -48,11 +52,9 @@ let grafico2 = document.getElementById("previous-page");
     },
     options: {
       scales: {
-        yAxes: [
-          {
-            beginAtZero: true,
-          },
-        ],
+        yAxes: [{
+          beginAtZero: true,
+        }, ],
       },
     },
   });
@@ -80,7 +82,9 @@ let grafico2 = document.getElementById("previous-page");
 })();
 
 (async () => {
-  let { data } = await Consult.getData();
+  let {
+    data
+  } = await Consult.getData();
   let table = document.getElementById("tableBody");
 
   data.forEach((element) => {
@@ -101,7 +105,9 @@ let grafico2 = document.getElementById("previous-page");
   const ChartData = async (e) => {
     $("#exampleModal").modal("show");
     let setCountry = e.target.dataset.country;
-    const { data } = await Country.getCountry(setCountry);
+    const {
+      data
+    } = await Country.getCountry(setCountry);
 
     document.getElementById("myChart2").remove();
     var canvas = document.createElement("canvas");
@@ -129,12 +135,22 @@ let grafico2 = document.getElementById("previous-page");
 })();
 
 document.getElementById("login").addEventListener("click", () => {
-  const email = document.getElementById("email").value;
-  const password = document.getElementById("password").value;
-
   $("#exampleModal2").modal("show");
   $("#form").submit(async (e) => {
     e.preventDefault();
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+
     const JWT = await Register(email, password);
+
+
+    if (JWT) {
+      document.getElementById("situacion").innerHTML = '<a class="nav-link" type="button" href="./chile.html" >Situacion Chile</a>';
+      document.getElementById("cerrarSesion").innerHTML = '<a id="salir" class="nav-link" type="button" href="" >Cerrar Sesion</a>';
+      $("#exampleModal2").modal("hide");
+      $("#login").hide();
+
+      logout();
+    }
   });
 });
