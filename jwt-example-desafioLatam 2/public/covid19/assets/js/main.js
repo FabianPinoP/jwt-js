@@ -2,7 +2,7 @@ import Consult from "./consult.js";
 import Country from "./consultCountry.js";
 import Graphic from "./graphic.js";
 import Register from "./register.js";
-import logout from "./logout.js"
+import Logout from "./logout.js"
 
 let contador = 0;
 const arrayData = [];
@@ -143,14 +143,13 @@ document.getElementById("login").addEventListener("click", () => {
 
     const JWT = await Register(email, password);
 
-
     if (JWT) {
       document.getElementById("situacion").innerHTML = '<a class="nav-link" type="button" href="./chile.html" >Situacion Chile</a>';
       document.getElementById("cerrarSesion").innerHTML = '<a id="salir" class="nav-link" type="button" href="" >Cerrar Sesion</a>';
       $("#exampleModal2").modal("hide");
       $("#login").hide();
 
-      logout();
+      Logout();
     }
   });
 });
