@@ -1,21 +1,20 @@
+//llamado de registro para obtener el jwt recibe email y password
+//hace un llamado de tipo post
+//almacena el token en local storage y finalmente devuelve el token
+
 const register = async (email, password) => {
   const url = "http://localhost:3000/api/login";
   try {
-    //llamado a endpoint de registro para obtener token
     const response = await fetch(url, {
-      // tipo de request
       method: "POST",
       body: JSON.stringify({
         email: email,
-        password: password
-      }), //recibe los parametros y crea el token con la info del usuario registrado
+        password: password,
+      }),
     });
-    const {
-      token
-    } = await response.json(); //retorna el token en una respuesta json
-    localStorage.setItem("jwt-token", token); // persiste el token en local storage
-    return token; //retorna el token
-
+    const { token } = await response.json();
+    localStorage.setItem("jwt-token", token);
+    return token;
   } catch (err) {
     console.error(`Error: ${err}`);
   }
