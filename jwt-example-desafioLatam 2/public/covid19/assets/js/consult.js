@@ -4,9 +4,10 @@ const consult = (() => {
     const resp = await fetch(url);
     const data = await resp.json();
     return data;
-  };
-  {
-    return { getData };
+  }; {
+    return {
+      getData
+    };
   }
 })();
 
