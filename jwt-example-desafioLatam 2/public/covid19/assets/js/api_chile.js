@@ -1,18 +1,18 @@
 import { menuChile } from "./menu.js";
 import Logout from "./logout.js";
 
-const situacionChile = async () => {
+const situacionChile = (async () => {
   const token = localStorage.getItem("jwt-token");
   if (token) {
     menuChile(token);
   }
   Logout();
-};
+})();
 
 //funcion que realiza 3 llamados a apis distintas de tipo get
 //itera sus respuestas y las deja en un arrays vacios para luego pasarlos al grafico
 
-const datos = async () => {
+const datos = (async () => {
   const token = localStorage.getItem("jwt-token");
   var confirmed = [];
   var recover = [];
@@ -67,7 +67,7 @@ const datos = async () => {
       document.getElementById("fondo").className += "bg-dark";
     }
   } catch (err) {}
-};
+})();
 
 //funcion que devuelve un grafico con los datos extraidos de la funcion anterior
 
@@ -106,11 +106,11 @@ const grafico = (confirmed, recover, deaths) => {
   };
 
   if (myChart instanceof Chart) {
-    myChart.destroy();
+    myChart.update();
   }
 
   myChart = new Chart(document.getElementById("myChartChile"), config);
 };
 
-datos();
-situacionChile();
+export { datos, grafico };
+// ojo se exportan datos y grafico
