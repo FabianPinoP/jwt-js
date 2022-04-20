@@ -3,8 +3,6 @@ const nombres = (data) => {
 
 	let nombre = data.filter((x) => x.location.includes(" "));
 
-	console.log(nombre);
-
 	/* Código país ISO 3166-1 alfa-2 */
 	let espacioCorregido = [
 		{
