@@ -4,6 +4,22 @@ body {
   background-size: cover;
 }
 
+.table.display body,
+td,
+select {
+  background-color: #212529 !important;
+  color: #FFFFFF;
+}
+
+#myTable_info {
+  color: #ffffff;
+}
+
+#myTable_wrapper label {
+  color: #ffffff;
+}
+
+
 /* loader */
 .loader {
   color: rgb(255, 205, 86);
